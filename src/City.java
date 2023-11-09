@@ -1,8 +1,5 @@
 import java.util.ArrayList;
 
-
-//doıjfoıeshoıs
-
 public class City {
 
 	public enum Months {
