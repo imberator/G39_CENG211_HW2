@@ -2,10 +2,6 @@ import java.util.ArrayList;
 
 public class City {
 
-	public enum Months {
-		JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER
-	}
-
 	private String name;
 	private ArrayList<Temperature> temperatureArrayList;
 	private ArrayList<Humidity> humidityArrayList;
@@ -15,19 +11,35 @@ public class City {
 
 	public City(String name, ArrayList<Temperature> temperatureArrayList, ArrayList<Humidity> humidityArrayList,
 			ArrayList<WindSpeed> windSpeedArrayList, ArrayList<RadiationAbsorbtion> radiationAbsorbtionArrayList) {
+		checkValidity(name, temperatureArrayList, humidityArrayList, windSpeedArrayList, radiationAbsorbtionArrayList);
 		this.name = name;
-		this.temperatureArrayList = new ArrayList<Temperature>();
-		this.humidityArrayList = new ArrayList<Humidity>();
-		this.windSpeedArrayList = new ArrayList<WindSpeed>();
-		this.radiationAbsorbtionArrayList = new ArrayList<RadiationAbsorbtion>();
-		checkMatchingOfArrayListsLengths(temperatureArrayList, humidityArrayList, windSpeedArrayList,
-				radiationAbsorbtionArrayList);
+		this.temperatureArrayList = new ArrayList<>();
+		this.humidityArrayList = new ArrayList<>();
+		this.windSpeedArrayList = new ArrayList<>();
+		this.radiationAbsorbtionArrayList = new ArrayList<>();
 		initializeArrayLists(temperatureArrayList, humidityArrayList, windSpeedArrayList, radiationAbsorbtionArrayList);
 	}
 
-	private void checkMatchingOfArrayListsLengths(ArrayList<Temperature> temperatureArrayList,
+	public City(City otherCity) {
+		if (otherCity == null) {
+			System.out.println("Error! City cannot be found.");
+			System.exit(0);
+		}
+		this.name = otherCity.name;
+		initializeArrayLists(otherCity.temperatureArrayList, otherCity.humidityArrayList, otherCity.windSpeedArrayList,
+				otherCity.radiationAbsorbtionArrayList);
+
+	}
+
+	private void checkValidity(String name, ArrayList<Temperature> temperatureArrayList,
 			ArrayList<Humidity> humidityArrayList, ArrayList<WindSpeed> windSpeedArrayList,
 			ArrayList<RadiationAbsorbtion> radiationAbsorbtionArrayList) {
+
+		if ((name == null) || (temperatureArrayList == null) || (humidityArrayList == null)
+				|| (windSpeedArrayList == null) || (radiationAbsorbtionArrayList == null)) {
+			System.out.println("Error! Improper attributes.");
+			System.exit(0);
+		}
 		if (!(humidityArrayList.size() == temperatureArrayList.size()
 				&& humidityArrayList.size() == windSpeedArrayList.size()
 				&& humidityArrayList.size() == radiationAbsorbtionArrayList.size())) {
@@ -54,7 +66,7 @@ public class City {
 			this.feltTemperatureArrayList.add(feltTemperature);
 		}
 	}
-	
+
 	public String getName() {
 		return name;
 	}

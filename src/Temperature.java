@@ -11,8 +11,8 @@ public class Temperature extends ClimateMeasurement {
 	public Temperature(int year, String month, double temperature) {
 		super(year, month);
 		this.celciusMeasurement = temperature;
-		this.fahrenheitMeasurement = convertCtoF();
-		this.kelvinMeasurement = convertCtoK();
+		this.fahrenheitMeasurement = convertCtoF(celciusMeasurement);
+		this.kelvinMeasurement = convertCtoK(celciusMeasurement);
 	}
 
 	public Temperature(Temperature other) {
@@ -35,14 +35,26 @@ public class Temperature extends ClimateMeasurement {
 //	public Temperature(double degree, String measurementType) {
 //
 //	}
+	
+	public double getCelciusMeasurement() {
+		return celciusMeasurement;
+	}
+	
+	public double getFahrenheitMeasurement() {
+		return fahrenheitMeasurement;
+	}
+	
+	public double getKelvinMeasurement() {
+		return kelvinMeasurement;
+	}
 
-	public double convertCtoK() {
-		return celciusMeasurement + 273.15;
+	public static double convertCtoK(double celcius) {
+		return celcius + 273.15;
 
 	}
 
-	public double convertCtoF() {
-		return celciusMeasurement * 9 / 5 + 32;
+	public static double convertCtoF(double celcius) {
+		return celcius * 9 / 5 + 32;
 
 	}
 

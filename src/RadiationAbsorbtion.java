@@ -26,6 +26,12 @@ public class RadiationAbsorbtion extends ClimateMeasurement {
 		return RadiationIntensity.valueOf(radiationIntensity);
 	}
 	
+	public RadiationAbsorbtion(RadiationAbsorbtion other) {
+		super(other.getYear(), other.getMonth());	
+		this.radiationIntensity = other.radiationIntensity;
+		this.unitAbsorbtionValue = other.unitAbsorbtionValue;
+	}
+	
 	private boolean isValidRadiationEnum(String radiationIntensity) {
 		
 		RadiationIntensity[] radiationIntensities = RadiationIntensity.values();
@@ -36,11 +42,6 @@ public class RadiationAbsorbtion extends ClimateMeasurement {
 		return false;
 	}
 
-	public RadiationAbsorbtion(RadiationAbsorbtion other) {
-		super(other.getYear(), other.getMonth());	
-		this.radiationIntensity = other.radiationIntensity;
-		this.unitAbsorbtionValue = other.unitAbsorbtionValue;
-	}
 
 	public double getRadiationAbsorbtion() {
 		return unitAbsorbtionValue;
