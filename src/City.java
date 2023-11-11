@@ -17,19 +17,23 @@ public class City {
 		this.humidityArrayList = new ArrayList<>();
 		this.windSpeedArrayList = new ArrayList<>();
 		this.radiationAbsorbtionArrayList = new ArrayList<>();
+		this.feltTemperatureArrayList = new ArrayList<>(); //Initialize edilmediği için null döndürüyordu.
 		initializeArrayLists(temperatureArrayList, humidityArrayList, windSpeedArrayList, radiationAbsorbtionArrayList);
 	}
 
+	//Null pointer exception atıyordu. Yanlış yazılmış copy constructor.
 	public City(City otherCity) {
-		if (otherCity == null) {
-			System.out.println("Error! City cannot be found.");
-			System.exit(0);
-		}
-		this.name = otherCity.name;
-		initializeArrayLists(otherCity.temperatureArrayList, otherCity.humidityArrayList, otherCity.windSpeedArrayList,
-				otherCity.radiationAbsorbtionArrayList);
-
-	}
+        if (otherCity == null) {
+            System.out.println("Error! City cannot be found.");
+            System.exit(0);
+        }
+        this.name = otherCity.name;
+        this.temperatureArrayList = new ArrayList<>(otherCity.temperatureArrayList);
+        this.humidityArrayList = new ArrayList<>(otherCity.humidityArrayList);
+        this.windSpeedArrayList = new ArrayList<>(otherCity.windSpeedArrayList);
+        this.radiationAbsorbtionArrayList = new ArrayList<>(otherCity.radiationAbsorbtionArrayList);
+        this.feltTemperatureArrayList = new ArrayList<>(otherCity.feltTemperatureArrayList);
+    }
 
 	private void checkValidity(String name, ArrayList<Temperature> temperatureArrayList,
 			ArrayList<Humidity> humidityArrayList, ArrayList<WindSpeed> windSpeedArrayList,
@@ -68,6 +72,11 @@ public class City {
 	}
 
 	public String getName() {
+		return name;
+	}
+	
+	@Override
+	public String toString(){ //Kontrol için öylesine eklendi.
 		return name;
 	}
 

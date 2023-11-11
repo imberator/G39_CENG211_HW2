@@ -8,3 +8,8 @@
 /RadiationAbsorbtion.class
 /Temperature.class
 /WindSpeed.class
+/ClimateMeasurement$Months.class
+/ClimateRecord.class
+/FileIO.class
+/Query.class
+/countries_and_cities.csv

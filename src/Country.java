@@ -12,6 +12,7 @@ public class Country {
 		this.cities = new ArrayList<>();
 	}
 
+
 	public Country(String name, ArrayList<Temperature> temperatures, ArrayList<City> cities) {
 		checkValidity(name, temperatures, cities);
 		this.name = name;
