@@ -41,13 +41,15 @@ public class MenuOperations {
 				System.out.println("[1] 2020 [2] 2021 [3] 2022");
 				System.out.print("Please select the year: ");
 				int yearOption = getCorrectYearOption();
+				////////////////////////////////////////////////////
 				double output = climateRecord.getAverageTemperatureOfCountry(countryName, yearOption, temperatureUnit);
 				System.out.println("Average temperature of " + countryName + " in "
 						+ climateRecord.getTemperatureMeasurementNames()[temperatureUnit - 1] + " in "
 						+ climateRecord.getYears()[yearOption - 1] + ": " + output);
 				System.out.println();
+
 			} else if (option.equals("2")) {
-				System.out.println("Enter the name of the city: ");
+				System.out.print("Enter the name of the city: ");
 				String cityName = getCorrectCityName();
 				System.out.println("[1] Celsius [2] Fahrenheit [3] Kelvin");
 				System.out.print("Please select the temperature unit: ");
@@ -55,12 +57,51 @@ public class MenuOperations {
 				System.out.println("[1] 2020 [2] 2021 [3] 2022");
 				System.out.print("Please select the year: ");
 				int yearOption = getCorrectYearOption();
+				////////////////////////////////////////////////////////
 				double output = climateRecord.getAverageTemperatureOfCity(cityName, yearOption, temperatureUnit);
 				System.out.println("Average temperature of " + cityName + " in "
 						+ climateRecord.getTemperatureMeasurementNames()[temperatureUnit - 1] + " in "
 						+ climateRecord.getYears()[yearOption - 1] + ": " + output);
-			}
 
+			} else if (option.equals("3")) {
+				System.out.println("Enter the name of the city: ");
+				String cityName = getCorrectCityName();
+
+			} else if (option.equals("4")) {
+
+			} else if (option.equals("5")) {
+				System.out.print("Enter the name of the city: ");
+				String cityName = getCorrectCityName();
+				System.out.println("[1] Low [2] Medium [3] High");
+				System.out.print("Please select a radiation intensity value: ");
+				RadiationAbsorbtion.RadiationIntensity intensity = getCorrectIntensityOption();
+				System.out.println("[1] 2020 [2] 2021 [3] 2022");
+				System.out.print("Please select the year: ");
+				int yearOption = getCorrectYearOption();
+				int intensityCount = climateRecord.getRadiationIntensityForCity(cityName, yearOption, intensity);
+				System.out.println("Total count of " + intensity.name().toLowerCase() + " radiation intensity in "
+						+ cityName + " in " + climateRecord.getYears()[yearOption - 1] + ": " + intensityCount);
+						
+			} else if (option.equals("6")) {
+				System.out.print("Enter the name of the city: ");
+				String cityName = getCorrectCityName();
+				System.out.print("Enter the month name: ");
+				String monthName = getCorrectMonthName();
+				System.out.println("[1] 2020 [2] 2021 [3] 2022");
+				System.out.print("Please select the year: ");
+				int yearOption = getCorrectYearOption();
+				double feltTemperature = climateRecord.getFeltTemperatureOfCity(cityName, yearOption, monthName);
+				System.out.println("The felt temperature value of " + monthName + " " + yearOption + " for" + cityName
+						+ ": " + feltTemperature);
+
+			} else if (option.equals("7")) {
+				System.out.println("Closing the application...");
+				break;
+			} else {
+				System.out.print("Invalid option. Please try again.");
+			}
+			String repeatedString = "*".repeat(80);
+			System.out.println(repeatedString);
 		}
 
 	}
@@ -117,7 +158,7 @@ public class MenuOperations {
 		}
 		return countryName;
 	}
-	
+
 	private String getCorrectCityName() {
 		boolean found = false;
 		String cityName = scanner.nextLine();
@@ -133,4 +174,41 @@ public class MenuOperations {
 		}
 		return cityName;
 	}
+
+	private String getCorrectMonthName() {
+		boolean found = false;
+		String monthName = scanner.nextLine();
+		while (!found) {
+			for (ClimateMeasurement.Months month : ClimateMeasurement.Months.values()) {
+				if (monthName.equalsIgnoreCase(month.name()))
+					found = true;
+			}
+			if (!found) {
+				System.out.print("Incorrect month! Please reenter month: ");
+				monthName = scanner.nextLine();
+			}
+		}
+		return monthName;
+
+	}
+
+	private RadiationAbsorbtion.RadiationIntensity getCorrectIntensityOption() {
+		RadiationAbsorbtion.RadiationIntensity[] intensityArray = RadiationAbsorbtion.RadiationIntensity.values();
+		int intensityOption = -1;
+		boolean done = false;
+		while (!done) {
+			String intensityInput = scanner.next();
+			try {
+				intensityOption = Integer.parseInt(intensityInput);
+				if (!(intensityOption > 0 && intensityOption <= intensityArray.length))
+					System.out.print("Incorrect option input! Please reenter another option input: ");
+				else
+					done = true;
+			} catch (NumberFormatException e) {
+				System.out.print("Please enter a number: ");
+			}
+		}
+		return intensityArray[intensityOption - 1];
+	}
+
 }

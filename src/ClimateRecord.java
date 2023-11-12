@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import RadiationAbsorbtion.RadiationIntensity;
+
 public class ClimateRecord {
 
 	public static final int CELCIUS = 1;
@@ -139,7 +141,8 @@ public class ClimateRecord {
 		return averageHumidities;
 	}
 
-	public int getRadiationIntensityForCity(String cityName, int yearOption, int intensityOption) {
+	public int getRadiationIntensityForCity(String cityName, int yearOption,
+			RadiationAbsorbtion.RadiationIntensity intensity) {
 
 		int indexOfCity = getIndexOfCity(cityName);
 
@@ -147,8 +150,6 @@ public class ClimateRecord {
 		ArrayList<RadiationAbsorbtion> radiationAbsorbtions = city.getRadiationAbsorbtions();
 
 		int year = years[yearOption - 1];
-		RadiationAbsorbtion.RadiationIntensity intensity = RadiationAbsorbtion.RadiationIntensity
-				.values()[intensityOption - 1];
 		int count = 0;
 		for (RadiationAbsorbtion radiationAbsorbtion : radiationAbsorbtions) {
 			if (intensity == radiationAbsorbtion.getRadiationIntensity() && year == radiationAbsorbtion.getYear())
