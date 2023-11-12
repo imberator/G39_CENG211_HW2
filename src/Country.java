@@ -29,8 +29,8 @@ public class Country {
 		}
 		checkValidity(otherCountry.name, otherCountry.temperatures, otherCountry.cities);
 		this.name = otherCountry.name;
-		initializeTemperatures(otherCountry.temperatures);
-		initializeCities(otherCountry.cities);
+		this.temperatures = new ArrayList<>(otherCountry.temperatures);
+		this.cities = new ArrayList<>(otherCountry.cities);
 	}
 
 	private void checkValidity(String name, ArrayList<Temperature> temperatures, ArrayList<City> cities) {
