@@ -1,13 +1,19 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuOperations {
 
-	ClimateRecord climateRecord;
-	Scanner scanner;
+	private ClimateRecord climateRecord;
+	private Scanner scanner;
+	private ArrayList<Country> countries;
+	private ArrayList<City> cities;
 
 	public MenuOperations() {
 		climateRecord = new ClimateRecord();
 		scanner = new Scanner(System.in);
+		FileIO fileIO = new FileIO();
+		cities = fileIO.getCities();
+		countries = fileIO.getCountries();
 	}
 
 	public void displayMenu() {
@@ -24,11 +30,11 @@ public class MenuOperations {
 
 			System.out.print("Please select an option: ");
 			String option = scanner.next();
+			scanner.nextLine();
 
 			if (option.equals("1")) {
 				System.out.println("Enter the name of the country: ");
-				scanner.nextLine();
-				String countryName = scanner.nextLine();
+				String countryName = getCorrectCountryName();
 				System.out.println("[1] Celsius [2] Fahrenheit [3] Kelvin");
 				System.out.print("Please select the temperature unit: ");
 				int temperatureUnit = getCorrectMeasurementUnitOption();
@@ -39,11 +45,10 @@ public class MenuOperations {
 				System.out.println("Average temperature of " + countryName + " in "
 						+ climateRecord.getTemperatureMeasurementNames()[temperatureUnit - 1] + " in "
 						+ climateRecord.getYears()[yearOption - 1] + ": " + output);
-
+				System.out.println();
 			} else if (option.equals("2")) {
 				System.out.println("Enter the name of the city: ");
-				scanner.nextLine();
-				String cityName = scanner.nextLine();
+				String cityName = getCorrectCityName();
 				System.out.println("[1] Celsius [2] Fahrenheit [3] Kelvin");
 				System.out.print("Please select the temperature unit: ");
 				int temperatureUnit = getCorrectMeasurementUnitOption();
@@ -61,19 +66,18 @@ public class MenuOperations {
 	}
 
 	private int getCorrectYearOption() {
-		
+
 		int yearOption = -1;
 		boolean done = false;
 		while (!done) {
 			String yearInput = scanner.next();
 			try {
 				yearOption = Integer.parseInt(yearInput);
-				if (!(yearOption > 0 && yearOption < climateRecord.getYears().length))
-					System.out.print("Incorrect option input! Please reenter another option input: ");
+				if (!(yearOption > 0 && yearOption <= climateRecord.getYears().length))
+					System.out.print("Incorrect option input! Please reenter another option input:");
 				else
-					done = true;					
-			}
-			catch (NumberFormatException e) {
+					done = true;
+			} catch (NumberFormatException e) {
 				System.out.println("Please enter a number!");
 			}
 		}
@@ -81,13 +85,52 @@ public class MenuOperations {
 	}
 
 	private int getCorrectMeasurementUnitOption() {
-		int measurementUnit = scanner.nextInt();
-		while (!(measurementUnit > 0 && measurementUnit < climateRecord.getTemperatureMeasurementNames().length)) {
-			System.out.print("Incorrect option input! Please reenter another option input: ");
-			measurementUnit = scanner.nextInt();
+		int unitOption = -1;
+		boolean done = false;
+		while (!done) {
+			String unitInput = scanner.next();
+			try {
+				unitOption = Integer.parseInt(unitInput);
+				if (!(unitOption > 0 && unitOption <= climateRecord.getTemperatureMeasurementNames().length))
+					System.out.print("Incorrect option input! Please reenter another option input: ");
+				else
+					done = true;
+			} catch (NumberFormatException e) {
+				System.out.print("Please enter a number: ");
+			}
 		}
-		return measurementUnit;
-
+		return unitOption;
 	}
 
+	private String getCorrectCountryName() {
+		boolean found = false;
+		String countryName = scanner.nextLine();
+		while (!found) {
+			for (Country country : countries) {
+				if (countryName.equalsIgnoreCase(country.getName()))
+					found = true;
+			}
+			if (!found) {
+				System.out.print("Incorrect country name! Please reenter country name: ");
+				countryName = scanner.nextLine();
+			}
+		}
+		return countryName;
+	}
+	
+	private String getCorrectCityName() {
+		boolean found = false;
+		String cityName = scanner.nextLine();
+		while (!found) {
+			for (City city : cities) {
+				if (cityName.equalsIgnoreCase(city.getName()))
+					found = true;
+			}
+			if (!found) {
+				System.out.print("Incorrect country name! Please reenter city name: ");
+				cityName = scanner.nextLine();
+			}
+		}
+		return cityName;
+	}
 }
