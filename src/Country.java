@@ -27,8 +27,10 @@ public class Country {
 			System.out.println("Cannot found country!");
 			System.exit(0);
 		}
+		checkValidity(otherCountry.name, otherCountry.temperatures, otherCountry.cities);
 		this.name = otherCountry.name;
-
+		initializeTemperatures(otherCountry.temperatures);
+		initializeCities(otherCountry.cities);
 	}
 
 	private void checkValidity(String name, ArrayList<Temperature> temperatures, ArrayList<City> cities) {

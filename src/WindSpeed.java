@@ -10,7 +10,7 @@ public class WindSpeed extends ClimateMeasurement {
 	public WindSpeed(int year, String month, double metersPerSecond) {
 		super(year, month);
 		this.metersPerSecond = metersPerSecond;
-		this.kmPerHour = metersPerSecondTokmPerHour();
+		this.kmPerHour = metersPerSecondTokmPerHour(this.metersPerSecond);
 	}
 
 	public WindSpeed(WindSpeed other) {
@@ -27,7 +27,7 @@ public class WindSpeed extends ClimateMeasurement {
 		return kmPerHour;
 	}
 
-	private double metersPerSecondTokmPerHour() {
+	public static double metersPerSecondTokmPerHour(double metersPerSecond) {
 		return metersPerSecond * 3.6;
 	}
 

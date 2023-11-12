@@ -5,14 +5,9 @@ public class Temperature extends ClimateMeasurement {
 	private double fahrenheitMeasurement;
 	private double kelvinMeasurement;
 
+	public static final double ABSOLUTE_ZERO_CELCIUS = -273.15;
 	public static final double MIN_CELCIUS = -40.0;
 	public static final double MAX_CELCIUS = 50.0;
-
-	// Not so sure about this one
-	// Check again
-	public Temperature() {
-		this(1000, "January", 0);
-	}
 	
 	public Temperature(int year, String month, double temperature) {
 		super(year, month);

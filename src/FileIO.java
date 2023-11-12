@@ -28,12 +28,9 @@ public class FileIO {
 			System.out.println(e.getMessage());
 			System.exit(0);
 		}
-
+		initializeCityAndCountryArrayLists();
 	}
-
-	// initializeCityAndCountryArrayLists methodu private olarak constructor da direkt çağrılsa daha iyi olur
-	// çünkü getCities ve getCountries methodları public, dolayısıyla initializeCityAndCountryArrayLists
-	// methodu çağrılmadan getCities ve getCountries çağrılırsa sıkıntı olabilir
+	
 	public ArrayList<City> getCities() {
 		ArrayList<City> temp = new ArrayList<>();
 
@@ -50,18 +47,7 @@ public class FileIO {
 		return temp;
 	}
 
-	public void initializeCityAndCountryArrayLists() {
-		
-		// Constructor da zaten yapılmış
-		locationsFile = new File("src/countries_and_cities.csv");
-		try {
-			locationsInputFile = new Scanner(locationsFile);
-		} catch (FileNotFoundException e) {
-			System.out.println("Error opening the file countries_and_cities.csv.");
-			System.out.println(e.getMessage());
-			System.exit(0);
-		}
-		//
+	private void initializeCityAndCountryArrayLists() {
 		
 		while (locationsInputFile.hasNext()) {
 			ArrayList<City> citiesForACountry = new ArrayList<>();
@@ -76,7 +62,7 @@ public class FileIO {
 			for (String d : data) {
 				d = d.trim();
 			}
-			for (int i = 1; i <= 3; i++) {
+			for (int i = 1; i < data.length; i++) {
 				cities.add(new City(data[i], temperaturesForACity, humidities, windSpeeds, radiationAbsorbtions));
 				citiesForACountry
 						.add(new City(data[i], temperaturesForACity, humidities, windSpeeds, radiationAbsorbtions));
@@ -86,7 +72,6 @@ public class FileIO {
 
 		}
 	}
-	////
 
 	private double generateRandomDoubleInRange(double min, double max) {
 		Random random = new Random();
@@ -105,15 +90,21 @@ public class FileIO {
 
 	private void initializeArrayListsForCities(ArrayList<Temperature> temperatures, ArrayList<Humidity> humidities,
 			ArrayList<WindSpeed> windSpeeds, ArrayList<RadiationAbsorbtion> radiationAbsorbtions) {
+		
 		ClimateMeasurement.Months[] monthArray = ClimateMeasurement.Months.values();
 		for (int year = MIN_YEAR; year <= MAX_YEAR; year++) {
+			
 			for (int month = FIRST_MONTH; month <= LAST_MONTH; month++) {
+			
 				temperatures.add(new Temperature(year, monthArray[month - 1].name(),
 						generateRandomDoubleInRange(Temperature.MAX_CELCIUS, Temperature.MAX_CELCIUS)));
+				
 				humidities.add(new Humidity(year, monthArray[month - 1].name(), generateRandomDoubleInRange(
 						Humidity.MIN_HUMIDITY_PERCENTAGE, Humidity.MAX_HUMIDITY_PERCENTAGE)));
+				
 				windSpeeds.add(new WindSpeed(year, monthArray[month - 1].name(),
 						generateRandomDoubleInRange(WindSpeed.MIN_WIND_SPEED, WindSpeed.MAX_WIND_SPEED)));
+				
 				radiationAbsorbtions.add(new RadiationAbsorbtion(year, monthArray[month - 1].name(),
 						RadiationAbsorbtion.RadiationIntensity.values()[new Random().nextInt(3)].name(),
 						generateRandomDoubleInRange(RadiationAbsorbtion.MIN_UNIT_ABSORBTION,
