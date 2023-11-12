@@ -28,6 +28,7 @@ public class City {
             System.exit(0);
         }
         this.name = otherCity.name;
+        // Objects need to be immutable ?
         this.temperatureArrayList = new ArrayList<>(otherCity.temperatureArrayList);
         this.humidityArrayList = new ArrayList<>(otherCity.humidityArrayList);
         this.windSpeedArrayList = new ArrayList<>(otherCity.windSpeedArrayList);
@@ -73,6 +74,14 @@ public class City {
 
 	public String getName() {
 		return name;
+	}
+	
+	public ArrayList<Temperature> getTemperatures() {
+		ArrayList<Temperature> temp = new ArrayList<>();
+		for (Temperature temperature : temperatureArrayList) {
+			temp.add(new Temperature(temperature));
+		}
+		return temp;
 	}
 	
 	@Override

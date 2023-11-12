@@ -2,6 +2,7 @@ import java.util.ArrayList;
 public class ClimateApp {
 
 	public static void main(String[] args) {
+		
 		FileIO file = new FileIO();
 
 		file.initializeCityAndCountryArrayLists();

@@ -24,9 +24,16 @@ public class FileIO {
 		try {
 			locationsInputFile = new Scanner(locationsFile);
 		} catch (FileNotFoundException e) {
-			System.out.println("Error opening the file products.csv.");}
-			}
+			System.out.println("Error opening the file countries_and_cities.csv.");
+			System.out.println(e.getMessage());
+			System.exit(0);
+		}
 
+	}
+
+	// initializeCityAndCountryArrayLists methodu private olarak constructor da direkt çağrılsa daha iyi olur
+	// çünkü getCities ve getCountries methodları public, dolayısıyla initializeCityAndCountryArrayLists
+	// methodu çağrılmadan getCities ve getCountries çağrılırsa sıkıntı olabilir
 	public ArrayList<City> getCities() {
 		ArrayList<City> temp = new ArrayList<>();
 
@@ -44,6 +51,8 @@ public class FileIO {
 	}
 
 	public void initializeCityAndCountryArrayLists() {
+		
+		// Constructor da zaten yapılmış
 		locationsFile = new File("src/countries_and_cities.csv");
 		try {
 			locationsInputFile = new Scanner(locationsFile);
@@ -52,7 +61,8 @@ public class FileIO {
 			System.out.println(e.getMessage());
 			System.exit(0);
 		}
-
+		//
+		
 		while (locationsInputFile.hasNext()) {
 			ArrayList<City> citiesForACountry = new ArrayList<>();
 			ArrayList<Temperature> temperaturesForACountry = new ArrayList<>();
@@ -76,6 +86,7 @@ public class FileIO {
 
 		}
 	}
+	////
 
 	private double generateRandomDoubleInRange(double min, double max) {
 		Random random = new Random();
