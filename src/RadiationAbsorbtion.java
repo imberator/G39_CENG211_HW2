@@ -46,6 +46,10 @@ public class RadiationAbsorbtion extends ClimateMeasurement {
 	public double getRadiationAbsorbtion() {
 		return unitAbsorbtionValue;
 	}
+	
+	public RadiationIntensity getRadiationIntensity() {
+		return radiationIntensity;
+	}
 
 	@Override
 	public boolean equals(Object otherObject) {

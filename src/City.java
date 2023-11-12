@@ -77,11 +77,43 @@ public class City {
 	}
 	
 	public ArrayList<Temperature> getTemperatures() {
-		ArrayList<Temperature> temp = new ArrayList<>();
-		for (Temperature temperature : temperatureArrayList) {
-			temp.add(new Temperature(temperature));
-		}
-		return temp;
+		ArrayList<Temperature> listToReturn = new ArrayList<>();
+		for (Temperature temperature : temperatureArrayList)
+			listToReturn.add(new Temperature(temperature));
+		
+		return listToReturn;
+	}
+	
+	public ArrayList<WindSpeed> getWindSpeeds() {
+		ArrayList<WindSpeed> listToReturn = new ArrayList<>();
+		for (WindSpeed windSpeed : windSpeedArrayList)
+			listToReturn.add(new WindSpeed(windSpeed));
+		
+		return listToReturn;
+	}
+	
+	public ArrayList<Humidity> getHumidities() {
+		ArrayList<Humidity> listToReturn = new ArrayList<>();
+		for (Humidity humidity : humidityArrayList)
+			listToReturn.add(new Humidity(humidity));
+		
+		return listToReturn;
+	}
+	
+	public ArrayList<RadiationAbsorbtion> getRadiationAbsorbtions() {
+		ArrayList<RadiationAbsorbtion> listToReturn = new ArrayList<>();
+		for (RadiationAbsorbtion radiationAbsorbtion : radiationAbsorbtionArrayList)
+			listToReturn.add(new RadiationAbsorbtion(radiationAbsorbtion));
+		
+		return listToReturn;
+	}
+	
+	public ArrayList<Temperature> getFeltTemperatures() {
+		ArrayList<Temperature> listToReturn = new ArrayList<>();
+		for (Temperature temperature : feltTemperatureArrayList)
+			listToReturn.add(new Temperature(temperature));
+		
+		return listToReturn;
 	}
 	
 	@Override
