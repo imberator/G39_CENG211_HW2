@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * The City class represents a city's climate data, including temperature,
+ * humidity, wind speed, radiation absorption, and felt temperature values.
+ */
 public class City {
 
 	private String name;
@@ -9,6 +13,15 @@ public class City {
 	private ArrayList<RadiationAbsorbtion> radiationAbsorbtionArrayList;
 	private ArrayList<Temperature> feltTemperatureArrayList;
 
+	/**
+	 * Constructs a City object with the specified attributes.
+	 *
+	 * @param name                         The name of the city.
+	 * @param temperatureArrayList         List of temperature data.
+	 * @param humidityArrayList            List of humidity data.
+	 * @param windSpeedArrayList           List of wind speed data.
+	 * @param radiationAbsorbtionArrayList List of radiation absorption data.
+	 */
 	public City(String name, ArrayList<Temperature> temperatureArrayList, ArrayList<Humidity> humidityArrayList,
 			ArrayList<WindSpeed> windSpeedArrayList, ArrayList<RadiationAbsorbtion> radiationAbsorbtionArrayList) {
 		checkValidity(name, temperatureArrayList, humidityArrayList, windSpeedArrayList, radiationAbsorbtionArrayList);
@@ -17,24 +30,27 @@ public class City {
 		this.humidityArrayList = new ArrayList<>();
 		this.windSpeedArrayList = new ArrayList<>();
 		this.radiationAbsorbtionArrayList = new ArrayList<>();
-		this.feltTemperatureArrayList = new ArrayList<>(); //Initialize edilmediği için null döndürüyordu.
+		this.feltTemperatureArrayList = new ArrayList<>();
 		initializeArrayLists(temperatureArrayList, humidityArrayList, windSpeedArrayList, radiationAbsorbtionArrayList);
 	}
 
-	//Null pointer exception atıyordu. Yanlış yazılmış copy constructor.
+	/**
+	 * Constructs a City object by copying another City object.
+	 *
+	 * @param otherCity The City object to be copied.
+	 */
 	public City(City otherCity) {
-        if (otherCity == null) {
-            System.out.println("Error! City cannot be found.");
-            System.exit(0);
-        }
-        this.name = otherCity.name;
-        // Objects need to be immutable ?
-        this.temperatureArrayList = new ArrayList<>(otherCity.temperatureArrayList);
-        this.humidityArrayList = new ArrayList<>(otherCity.humidityArrayList);
-        this.windSpeedArrayList = new ArrayList<>(otherCity.windSpeedArrayList);
-        this.radiationAbsorbtionArrayList = new ArrayList<>(otherCity.radiationAbsorbtionArrayList);
-        this.feltTemperatureArrayList = new ArrayList<>(otherCity.feltTemperatureArrayList);
-    }
+		if (otherCity == null) {
+			System.out.println("Error! City cannot be found.");
+			System.exit(0);
+		}
+		this.name = otherCity.name;
+		this.temperatureArrayList = new ArrayList<>(otherCity.temperatureArrayList);
+		this.humidityArrayList = new ArrayList<>(otherCity.humidityArrayList);
+		this.windSpeedArrayList = new ArrayList<>(otherCity.windSpeedArrayList);
+		this.radiationAbsorbtionArrayList = new ArrayList<>(otherCity.radiationAbsorbtionArrayList);
+		this.feltTemperatureArrayList = new ArrayList<>(otherCity.feltTemperatureArrayList);
+	}
 
 	private void checkValidity(String name, ArrayList<Temperature> temperatureArrayList,
 			ArrayList<Humidity> humidityArrayList, ArrayList<WindSpeed> windSpeedArrayList,
@@ -72,64 +88,120 @@ public class City {
 		}
 	}
 
+	/**
+	 * Returns the name of the city.
+	 *
+	 * @return The name of the city.
+	 */
 	public String getName() {
 		return name;
 	}
-	
+
+	/**
+	 * Returns a copy of the temperature data for the city.
+	 *
+	 * @return A copy of the temperature data for the city.
+	 */
 	public ArrayList<Temperature> getTemperatures() {
 		ArrayList<Temperature> listToReturn = new ArrayList<>();
 		for (Temperature temperature : temperatureArrayList)
 			listToReturn.add(new Temperature(temperature));
-		
 		return listToReturn;
 	}
-	
+
+	/**
+	 * Returns a copy of the wind speed data for the city.
+	 *
+	 * @return A copy of the wind speed data for the city.
+	 */
 	public ArrayList<WindSpeed> getWindSpeeds() {
 		ArrayList<WindSpeed> listToReturn = new ArrayList<>();
 		for (WindSpeed windSpeed : windSpeedArrayList)
 			listToReturn.add(new WindSpeed(windSpeed));
-		
+
 		return listToReturn;
 	}
-	
-	public ArrayList<Humidity> getHumidities() {
+
+/**
+	 * Returns a copy of the humidity data for the city.
+	 *
+	 * @return A copy of the humidity data for the city.
+	 */	public ArrayList<Humidity> getHumidities() {
 		ArrayList<Humidity> listToReturn = new ArrayList<>();
 		for (Humidity humidity : humidityArrayList)
 			listToReturn.add(new Humidity(humidity));
-		
+
 		return listToReturn;
 	}
-	
+
+	/**
+	 * Returns a copy of the radiation absorbtion data for the city.
+	 *
+	 * @return A copy of the radiation absorbtion data for the city.
+	 */
 	public ArrayList<RadiationAbsorbtion> getRadiationAbsorbtions() {
 		ArrayList<RadiationAbsorbtion> listToReturn = new ArrayList<>();
 		for (RadiationAbsorbtion radiationAbsorbtion : radiationAbsorbtionArrayList)
 			listToReturn.add(new RadiationAbsorbtion(radiationAbsorbtion));
-		
+
 		return listToReturn;
 	}
-	
+
+	/**
+	 * Returns a copy of the felt temperature data for the city.
+	 *
+	 * @return A copy of the felt temperature data for the city.
+	 */
 	public ArrayList<Temperature> getFeltTemperatures() {
 		ArrayList<Temperature> listToReturn = new ArrayList<>();
 		for (Temperature temperature : feltTemperatureArrayList)
 			listToReturn.add(new Temperature(temperature));
-		
+
 		return listToReturn;
 	}
-	
+
 	@Override
-	public String toString(){ //Kontrol için öylesine eklendi.
-		return name;
+	public boolean equals(Object other) {
+		if (other == null)
+			return false;
+		else if (getClass() != other.getClass())
+			return false;
+		else {
+			City city = (City) other;
+			return name.equalsIgnoreCase(city.name) && checkArrayListEqualities(city);
+		}
 	}
 
-//	private void initializeArrayLists234567() {
-//		for (int year = 2020; year <= 2022; year++) {
-//			for (int month = 1; month <= 12; month++) {
-//				temperatureArrayList.add(new Temperature(year, Months.values()[month - 1].name()));
-//				humidityArrayList.add(new Humidity(year, Months.values()[month - 1].name()));
-//				windSpeedArrayList.add(new WindSpeed(year, Months.values()[month - 1].name()));
-//				radiationAbsorbtionArrayList.add(new RadiationAbsorbtion(year, Months.values()[month - 1].name()));
-//			}
-//		}
-//	}
+	private boolean checkArrayListEqualities(City city) {
+		if (temperatureArrayList.size() != city.temperatureArrayList.size()
+				|| humidityArrayList.size() != city.humidityArrayList.size()
+				|| windSpeedArrayList.size() != city.windSpeedArrayList.size()
+				|| radiationAbsorbtionArrayList.size() != city.radiationAbsorbtionArrayList.size())
+			return false;
+		else {
+			for (int i = 0; i < temperatureArrayList.size(); i++) {
+				if (!(temperatureArrayList.get(i).equals(city.temperatureArrayList.get(i))
+						&& humidityArrayList.get(i).equals(city.humidityArrayList.get(i))
+						&& windSpeedArrayList.get(i).equals(city.windSpeedArrayList.get(i))
+						&& radiationAbsorbtionArrayList.get(i).equals(city.radiationAbsorbtionArrayList.get(i))
+						&& feltTemperatureArrayList.get(i).equals(city.feltTemperatureArrayList.get(i))))
+					return false;
+			}
+		}
+		return true;
+
+	}
+
+	/**
+     * Returns a string representation of the city.
+     *
+     * @return A string describing the city and its associated climate measurement data.
+     */
+	@Override
+	public String toString() {
+		return name + " has the data of temperature, humidity,"
+				+ " wind speed, radiation absorbtion and felt temperature values from " + FileIO.MIN_YEAR + " to "
+				+ FileIO.MAX_YEAR;
+	}
 
 }
