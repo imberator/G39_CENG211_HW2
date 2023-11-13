@@ -1,3 +1,4 @@
+package presentation_layer;
 /** The ClimateApp class serves as the entry point for the climate application.
  *  It initializes the MenuOperations class and displays the main menu.
  */

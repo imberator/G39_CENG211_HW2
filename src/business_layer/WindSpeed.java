@@ -1,3 +1,4 @@
+package business_layer;
 
 /**
  * The `WindSpeed` class extends the `ClimateMeasurement` class and represents wind speed data.

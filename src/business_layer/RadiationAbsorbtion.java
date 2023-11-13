@@ -1,3 +1,4 @@
+package business_layer;
 
 /**
  * The `RadiationAbsorbtion` class extends the `ClimateMeasurement` class and represents radiation absorption data.

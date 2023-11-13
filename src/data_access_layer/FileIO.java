@@ -1,8 +1,17 @@
+package data_access_layer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+import business_layer.City;
+import business_layer.ClimateMeasurement;
+import business_layer.Country;
+import business_layer.Humidity;
+import business_layer.RadiationAbsorbtion;
+import business_layer.Temperature;
+import business_layer.WindSpeed;
 
 /**
  * The `FileIO` class is responsible for reading data from a file, initializing lists of cities and countries,

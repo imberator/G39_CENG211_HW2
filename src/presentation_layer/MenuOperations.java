@@ -1,5 +1,13 @@
+package presentation_layer;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import business_layer.City;
+import business_layer.ClimateMeasurement;
+import business_layer.ClimateRecord;
+import business_layer.Country;
+import business_layer.RadiationAbsorbtion;
+import data_access_layer.FileIO;
 
 /**
  * The `MenuOperations` class handles user interactions by displaying a menu and

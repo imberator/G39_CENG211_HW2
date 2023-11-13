@@ -1,3 +1,4 @@
+package business_layer;
 /**
  * The `Humidity` class extends the `ClimateMeasurement` class and represents
  * humidity data. It includes information about humidity percentage and humidity

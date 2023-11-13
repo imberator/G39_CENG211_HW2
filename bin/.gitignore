@@ -12,3 +12,8 @@
 /ClimateRecord.class
 /FileIO.class
 /Query.class
+/app/
+/locations/
+/data_access_layer/
+/business_layer/
+/presentation_layer/
